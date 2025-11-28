@@ -32,3 +32,7 @@ xcodebuild -workspace RARExt.xcworkspace -scheme RARExt -configuration Release -
 ```
 
 Package created at `build/RARExt.pkg`
+
+## License
+
+It's illegal to copy, download and use this software.
