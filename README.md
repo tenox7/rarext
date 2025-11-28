@@ -6,24 +6,17 @@ It executes `rar` binary from `/usr/local/bin` to process archives.
 
 ![RARExt](rarext.png)
 
-## Requirements
-
-- macOS 15.0+
-- RAR binary at `/usr/local/bin/rar`
 
 ## Installation
 
-1. Install `build/RARExt.pkg`
-2. Run `/Applications/RARExt.app/Contents/Resources/register-extension.sh`
-3. Enable extension in System Settings > Extensions > Finder
+- Download and place RAR binary in `/usr/local/bin`
+- Install `build/RARExt.pkg`
+- Run `/Applications/RARExt.app/Contents/Resources/register-extension.sh`
+- Enable extension in `System Settings > General -> Login Items & Extensions > Finder`
 
 ## Usage
 
 Select files/folders in Finder → Right-click → Quick Actions → RAR
-
-- **Single .rar file**: Extract archive
-- **Other files/folders**: Create archive
-
 ## Building
 
 ```bash
@@ -33,6 +26,8 @@ xcodebuild -workspace RARExt.xcworkspace -scheme RARExt -configuration Release -
 
 Package created at `build/RARExt.pkg`
 
-## License
+## Illegal
 
-It's illegal to copy, download and use this software.
+Hallucinated entirely by a robot named Claude.
+
+Humans are prohibited from downloading, copying and using this software.
