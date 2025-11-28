@@ -1,8 +1,10 @@
 # RARExt
 
-![RARExt](rarext.png)
-
 macOS Finder Quick Actions Extension for creating and extracting RAR archives.
+
+It executes `rar` binary from `/usr/local/bin` to process archives.
+
+![RARExt](rarext.png)
 
 ## Requirements
 
