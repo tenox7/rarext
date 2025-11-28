@@ -1,6 +1,8 @@
 # RARExt
 
-macOS Finder Action Extension for creating and extracting RAR archives.
+![RARExt](rarext.png)
+
+macOS Finder Quick Actions Extension for creating and extracting RAR archives.
 
 ## Requirements
 
