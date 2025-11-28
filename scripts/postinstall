@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Set proper permissions
+chmod -R 755 /Applications/RARExt.app
+
+# Show installation complete dialog with instructions
+osascript <<EOF
+display dialog "RARExt has been installed successfully!
+
+To activate the Finder extension:
+
+1. Double-click: /Applications/RARExt.app/Contents/Resources/register-extension.sh
+2. Go to System Settings > Extensions > Finder
+3. Enable the 'RAR' extension
+
+Then right-click files in Finder > Quick Actions > RAR" buttons {"OK"} default button "OK" with title "RARExt Installation"
+EOF
+
+exit 0
