@@ -18,6 +18,7 @@ public struct ContentView: View {
     @State private var threadCount = 0
     @State private var splitVolumes = false
     @State private var volumeSize = ""
+    @State private var excludeDSStore = true
     @State private var showCommandWindow = false
     @State private var isExtractMode = false
     @State private var extractPath = ""
@@ -141,6 +142,7 @@ public struct ContentView: View {
                     Toggle("Test archive after creation", isOn: $testAfter)
                     Toggle("Add recovery record", isOn: $addRecovery)
                     Toggle("Lock archive", isOn: $lockArchive)
+                    Toggle("Exclude .DS_Store files", isOn: $excludeDSStore)
 
                     Stepper("Threads: \(threadCount == 0 ? "Auto" : "\(threadCount)")",
                            value: $threadCount, in: 0...16)
@@ -240,6 +242,10 @@ public struct ContentView: View {
 
         if splitVolumes && !volumeSize.isEmpty {
             parts.append("-v\(volumeSize)")
+        }
+
+        if excludeDSStore {
+            parts.append("-x.DS_Store")
         }
 
         if !archiveName.isEmpty {
