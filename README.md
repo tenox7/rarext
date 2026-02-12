@@ -1,6 +1,6 @@
 # RARExt
 
-macOS Finder Quick Actions Extension for creating and extracting RAR archives.
+macOS Finder Quick Actions Extension for creating and extracting [RAR](https://www.rarlab.com/) archives.
 
 It executes `rar` binary from `/usr/local/bin` to process archives.
 
@@ -9,22 +9,14 @@ It executes `rar` binary from `/usr/local/bin` to process archives.
 
 ## Installation
 
-- Download and place RAR binary in `/usr/local/bin`
+- Download and place [RAR binary](https://www.rarlab.com/download.htm) in `/usr/local/bin`
 - Install `build/RARExt.pkg`
-- Run `/Applications/RARExt.app/Contents/Resources/register-extension.sh`
+- Open and close RARExt.app from /Applications
 - Enable extension in `System Settings > General -> Login Items & Extensions > Finder`
 
 ## Usage
 
 Select files/folders in Finder → Right-click → Quick Actions → RAR
-## Building
-
-```bash
-xcodebuild -workspace RARExt.xcworkspace -scheme RARExt -configuration Release -derivedDataPath build clean build
-./scripts/create-installer.sh
-```
-
-Package created at `build/RARExt.pkg`
 
 ## Illegal
 
