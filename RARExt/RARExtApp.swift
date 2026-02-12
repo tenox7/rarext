@@ -16,13 +16,21 @@ struct RARExtApp: App {
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     private let extensionBundleID = "com.example.rarext.RARAction"
+    private let registerOnly = CommandLine.arguments.contains("--register")
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        if registerOnly {
+            NSApp.setActivationPolicy(.accessory)
+            NSApp.windows.forEach { $0.orderOut(nil) }
+        }
         registerExtensionIfNeeded()
+        if registerOnly {
+            NSApp.terminate(nil)
+        }
     }
 
     func application(_ application: NSApplication, open urls: [URL]) {
@@ -55,7 +63,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         run("/usr/bin/pluginkit", arguments: ["-a", appexPath])
         run("/usr/bin/pluginkit", arguments: ["-e", "use", "-i", extensionBundleID])
 
-        if isExtensionRegistered() { return }
+        if isExtensionRegistered() || registerOnly { return }
 
         let alert = NSAlert()
         alert.messageText = "Finder Extension Registration Failed"
