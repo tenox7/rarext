@@ -18,12 +18,12 @@ public struct ContentView: View {
     @State private var dictionarySize = 15
     @State private var threadCount = 0
     @State private var splitVolumes = false
-    @State private var volumeSize = ""
+    @State private var volumeSize = 4
     @State private var excludeDSStore = true
     @State private var showCommandWindow = false
     @State private var isExtractMode = false
     @State private var extractPath = ""
-    @State private var overwriteMode = 1
+    @State private var overwriteFiles = true
 
     public init() {}
 
@@ -112,11 +112,7 @@ public struct ContentView: View {
                 }
 
                 Section {
-                    Picker("If file exists", selection: $overwriteMode) {
-                        Text("Overwrite").tag(1)
-                        Text("Skip").tag(2)
-                    }
-
+                    Toggle("Overwrite files", isOn: $overwriteFiles)
                     Toggle("Extract with full paths", isOn: $recurseSubdirs)
 
                     TextField("Password (if encrypted)", text: $password)
@@ -198,7 +194,15 @@ public struct ContentView: View {
 
                     Toggle("Split into volumes", isOn: $splitVolumes)
                     if splitVolumes {
-                        TextField("Volume size (e.g., 100M, 1G)", text: $volumeSize)
+                        Picker("Volume size", selection: $volumeSize) {
+                            Text("100 MB").tag(0)
+                            Text("250 MB").tag(1)
+                            Text("500 MB").tag(2)
+                            Text("700 MB (CD)").tag(3)
+                            Text("1 GB").tag(4)
+                            Text("2 GB").tag(5)
+                            Text("4.7 GB (DVD)").tag(6)
+                        }
                     }
                 } header: {
                     Text("Options")
@@ -217,11 +221,7 @@ public struct ContentView: View {
             parts.append(recurseSubdirs ? "x" : "e")
             parts.append("-y")
 
-            switch overwriteMode {
-            case 1: parts.append("-o+")
-            case 2: parts.append("-o-")
-            default: break
-            }
+            parts.append(overwriteFiles ? "-o+" : "-o-")
 
             if !password.isEmpty {
                 parts.append("-p\(password)")
@@ -284,8 +284,11 @@ public struct ContentView: View {
             parts.append("-mt\(threadCount)")
         }
 
-        if splitVolumes && !volumeSize.isEmpty {
-            parts.append("-v\(volumeSize)")
+        if splitVolumes {
+            let volumeSizes = ["100m", "250m", "500m", "700m", "1g", "2g", "4700m"]
+            if volumeSize < volumeSizes.count {
+                parts.append("-v\(volumeSizes[volumeSize])")
+            }
         }
 
         if excludeDSStore {
