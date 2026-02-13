@@ -18,8 +18,3 @@ It executes `rar` binary from `/usr/local/bin` to process archives.
 
 Select files/folders in Finder → Right-click → Quick Actions → RAR
 
-## Illegal
-
-Hallucinated entirely by a robot named Claude.
-
-Humans are prohibited from downloading, copying and using this software.
