@@ -10,9 +10,9 @@ It executes `rar` binary from `/usr/local/bin` to process archives.
 ## Installation
 
 - Download and place [RAR binary](https://www.rarlab.com/download.htm) in `/usr/local/bin`
-- Install `build/RARExt.pkg`
-- Open and close RARExt.app from /Applications
-- Enable extension in `System Settings > General -> Login Items & Extensions > Finder`
+- Download and run `RARExt.pkg`
+- Open and close `RARExt.app` from /Applications once
+- Go to `System Settings > General -> Login Items & Extensions > Finder` enable RAR extension
 
 ## Usage
 
