@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 public struct ContentView: View {
     @State private var selectedFiles: [String] = []
@@ -27,6 +28,54 @@ public struct ContentView: View {
     public init() {}
 
     public var body: some View {
+        Group {
+            if selectedFiles.isEmpty {
+                dropZoneView
+            } else {
+                formView
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("LoadFiles"))) { notification in
+            if let files = notification.object as? [String] {
+                loadFiles(files)
+            }
+        }
+    }
+
+    private var dropZoneView: some View {
+        VStack(spacing: 16) {
+            Spacer()
+            Image(systemName: "arrow.down.doc")
+                .font(.system(size: 48))
+                .foregroundStyle(.secondary)
+            Text("Drop files or folders here")
+                .font(.title2)
+                .foregroundStyle(.secondary)
+            Text("or")
+                .foregroundStyle(.tertiary)
+            Button("Browse...") {
+                browseFiles()
+            }
+            .buttonStyle(.borderedProminent)
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(32)
+        .background {
+            RoundedRectangle(cornerRadius: 12)
+                .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [8]))
+                .foregroundStyle(.tertiary)
+                .padding(16)
+        }
+        .onDrop(of: [.fileURL], isTargeted: nil) { providers in
+            loadDroppedFiles(providers)
+            return true
+        }
+        .frame(minWidth: 500, minHeight: 400)
+        .navigationTitle("RAR")
+    }
+
+    private var formView: some View {
         Form {
             Section {
                 VStack(alignment: .leading, spacing: 12) {
@@ -159,11 +208,6 @@ public struct ContentView: View {
         .formStyle(.grouped)
         .frame(minWidth: 500, minHeight: 600)
         .navigationTitle(isExtractMode ? "RAR Extract Archive" : "RAR Create Archive")
-        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("LoadFiles"))) { notification in
-            if let files = notification.object as? [String] {
-                loadFiles(files)
-            }
-        }
     }
 
     private func buildCommand() -> String {
@@ -261,6 +305,32 @@ public struct ContentView: View {
         return parts.joined(separator: " ")
     }
 
+
+    private func browseFiles() {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = true
+        guard panel.runModal() == .OK else { return }
+        let paths = panel.urls.map(\.path)
+        if !paths.isEmpty { loadFiles(paths) }
+    }
+
+    private func loadDroppedFiles(_ providers: [NSItemProvider]) {
+        let group = DispatchGroup()
+        var paths: [String] = []
+        for provider in providers {
+            guard provider.canLoadObject(ofClass: URL.self) else { continue }
+            group.enter()
+            _ = provider.loadObject(ofClass: URL.self) { url, _ in
+                if let url { paths.append(url.path) }
+                group.leave()
+            }
+        }
+        group.notify(queue: .main) {
+            if !paths.isEmpty { loadFiles(paths) }
+        }
+    }
 
     private func loadFiles(_ files: [String]) {
         selectedFiles = files
