@@ -352,14 +352,13 @@ public struct ContentView: View {
         let directory = (firstFile as NSString).deletingLastPathComponent
         let baseName: String
 
-        if files.count == 1 {
+        recurseSubdirs = files.contains { path in
             var isDirectory: ObjCBool = false
-            FileManager.default.fileExists(atPath: firstFile, isDirectory: &isDirectory)
+            FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory)
+            return isDirectory.boolValue
+        }
 
-            if !isDirectory.boolValue {
-                recurseSubdirs = false
-            }
-
+        if files.count == 1 {
             baseName = (firstFile as NSString).lastPathComponent
         } else {
             baseName = "archive"
