@@ -15,7 +15,7 @@ struct RARExtApp: App {
 }
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    private let extensionBundleID = "com.example.rarext.RARAction"
+    private let extensionBundleID = "com.github.tenox7.rarext.RARAction"
     private let registerOnly = CommandLine.arguments.contains("--register")
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

@@ -17,7 +17,7 @@ pkg: build
 	cp -R $(APP_PATH) $(PKG_ROOT)/Applications/
 	cp scripts/postinstall $(SCRIPTS_DIR)/
 	chmod +x $(SCRIPTS_DIR)/postinstall
-	pkgbuild --root $(PKG_ROOT) --scripts $(SCRIPTS_DIR) --identifier com.example.rarext --version 1.0 --install-location / $(PKG_OUTPUT)
+	pkgbuild --root $(PKG_ROOT) --scripts $(SCRIPTS_DIR) --identifier com.github.tenox7.rarext --version 1.0 --install-location / $(PKG_OUTPUT)
 	@echo ""
 	@echo "Package created: $(PKG_OUTPUT)"
 	@echo "Double-click the .pkg to install or run: sudo installer -pkg $(PKG_OUTPUT) -target /"
@@ -39,7 +39,7 @@ release: sign
 	cp scripts/postinstall $(SCRIPTS_DIR)/
 	chmod +x $(SCRIPTS_DIR)/postinstall
 	pkgbuild --root $(PKG_ROOT) --scripts $(SCRIPTS_DIR) \
-		--identifier com.example.rarext --version 1.0 --install-location / \
+		--identifier com.github.tenox7.rarext --version 1.0 --install-location / \
 		--sign "$(DEV_ID_INSTALLER)" --timestamp $(PKG_OUTPUT)
 	xcrun notarytool submit $(PKG_OUTPUT) --keychain-profile "$(NOTARY_PROFILE)" --wait
 	xcrun stapler staple $(PKG_OUTPUT)

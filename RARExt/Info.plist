@@ -24,7 +24,7 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.example.rarext</string>
+			<string>com.github.tenox7.rarext</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>rarext</string>

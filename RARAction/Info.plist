@@ -9,7 +9,7 @@
     <key>CFBundleExecutable</key>
     <string>RARAction</string>
     <key>CFBundleIdentifier</key>
-    <string>com.example.rarext.RARAction</string>
+    <string>com.github.tenox7.rarext.RARAction</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
