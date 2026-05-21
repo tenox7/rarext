@@ -59,6 +59,22 @@
 			);
 			target = 8BC2655B2DEDD3F400F279A4 /* RARExt */;
 		};
+		8BD71C1F2DEE424400CEDD93 /* Exceptions for "RARExt" folder in "RARExt" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+				RARExt.xctestplan,
+			);
+			target = 8BC2655B2DEDD3F400F279A4 /* RARExt */;
+		};
+		8BD71C202DEE424400CEDD94 /* Exceptions for "RARAction" folder in "RARAction" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+				RARAction.entitlements,
+			);
+			target = D1D4D17B2ED6F2B6006429E9 /* RARAction */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -72,6 +88,9 @@
 		};
 		8BC2655E2DEDD3F400F279A4 /* RARExt */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8BD71C1F2DEE424400CEDD93 /* Exceptions for "RARExt" folder in "RARExt" target */,
+			);
 			path = RARExt;
 			sourceTree = "<group>";
 		};
@@ -82,6 +101,9 @@
 		};
 		D1D4D17D2ED6F2B6006429E9 /* RARAction */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8BD71C202DEE424400CEDD94 /* Exceptions for "RARAction" folder in "RARAction" target */,
+			);
 			path = RARAction;
 			sourceTree = "<group>";
 		};

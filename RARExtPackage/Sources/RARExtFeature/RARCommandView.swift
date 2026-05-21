@@ -86,7 +86,11 @@ public struct RARCommandView: View {
 
         pipe.fileHandleForReading.readabilityHandler = { handle in
             let data = handle.availableData
-            if !data.isEmpty, let text = String(data: data, encoding: .utf8) {
+            if data.isEmpty {
+                handle.readabilityHandler = nil
+                return
+            }
+            if let text = String(data: data, encoding: .utf8) {
                 DispatchQueue.main.async {
                     output += text
                 }
@@ -94,6 +98,7 @@ public struct RARCommandView: View {
         }
 
         process.terminationHandler = { _ in
+            pipe.fileHandleForReading.readabilityHandler = nil
             DispatchQueue.main.async {
                 isRunning = false
                 output += "\n\nCommand completed with exit code: \(process.terminationStatus)\n"
