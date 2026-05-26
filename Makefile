@@ -54,3 +54,4 @@ install: build
 
 clean:
 	rm -rf build
+	find . -type d \( -name .build -o -name .swiftpm -o -name xcuserdata -o -name DerivedData \) -prune -exec rm -rf {} +
