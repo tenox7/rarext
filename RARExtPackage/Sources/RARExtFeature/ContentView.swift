@@ -15,7 +15,7 @@ public struct ContentView: View {
     @State private var addRecovery = true
     @State private var lockArchive = false
     @State private var showAdvanced = false
-    @State private var dictionarySize = 15
+    @State private var dictionarySize = 18
     @State private var threadCount = 0
     @State private var splitVolumes = false
     @State private var volumeSize = 4
