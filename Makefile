@@ -5,8 +5,10 @@ APPEX_PATH = $(APP_PATH)/Contents/PlugIns/RAR.appex
 PKG_ROOT = build/pkg-root
 SCRIPTS_DIR = build/pkg-scripts
 PKG_OUTPUT = build/RARExt.pkg
+DMG_ROOT = build/dmg-root
+DMG_OUTPUT = build/RARExt.dmg
 
-.PHONY: build sign pkg release install clean
+.PHONY: build sign pkg release dmg install clean
 
 build:
 	xcodebuild -workspace RARExt.xcworkspace -scheme RARExt -configuration Release -derivedDataPath build clean build
@@ -45,6 +47,19 @@ release: sign
 	xcrun stapler staple $(PKG_OUTPUT)
 	@echo ""
 	@echo "Signed + notarized: $(PKG_OUTPUT)"
+
+dmg: sign
+	@test -n "$(NOTARY_PROFILE)" || { echo "NOTARY_PROFILE not set — copy .env.example to .env and fill in"; exit 1; }
+	rm -rf $(DMG_ROOT) $(DMG_OUTPUT)
+	mkdir -p $(DMG_ROOT)
+	ditto $(APP_PATH) $(DMG_ROOT)/RARExt.app
+	ln -s /Applications $(DMG_ROOT)/Applications
+	hdiutil create -volname RARExt -srcfolder $(DMG_ROOT) -ov -format UDZO $(DMG_OUTPUT)
+	codesign --force --timestamp --sign "$(DEV_ID_APP)" $(DMG_OUTPUT)
+	xcrun notarytool submit $(DMG_OUTPUT) --keychain-profile "$(NOTARY_PROFILE)" --wait
+	xcrun stapler staple $(DMG_OUTPUT)
+	@echo ""
+	@echo "Signed + notarized: $(DMG_OUTPUT)"
 
 install: build
 	killall RARExt 2>/dev/null || true
