@@ -2,7 +2,7 @@
 
 macOS Finder Quick Actions Extension for creating and extracting [RAR](https://www.rarlab.com/) archives.
 
-It executes `rar` binary from `/usr/local/bin` to process archives.
+It executes `rar` binary from `/usr/local/bin` to process archives. This is just a handy UI for RAR CLI.
 
 ![RARExt](rarext.png)
 
@@ -17,4 +17,3 @@ It executes `rar` binary from `/usr/local/bin` to process archives.
 ## Usage
 
 Select files/folders in Finder → Right-click → Quick Actions → RAR
-
