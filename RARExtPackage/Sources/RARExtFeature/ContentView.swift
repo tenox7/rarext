@@ -173,15 +173,6 @@ public struct ContentView: View {
                 }
 
                 Section {
-                    Toggle("Use password", isOn: $usePassword)
-                    if usePassword {
-                        TextField("Password", text: $password)
-                    }
-                } header: {
-                    Text("Security")
-                }
-
-                Section {
                     Toggle("Recurse subdirectories", isOn: $recurseSubdirs)
                     Toggle("Delete files after archiving", isOn: $deleteAfter)
                     Toggle("Test archive after creation", isOn: $testAfter)
@@ -203,6 +194,11 @@ public struct ContentView: View {
                             Text("2 GB").tag(5)
                             Text("4.7 GB (DVD)").tag(6)
                         }
+                    }
+
+                    Toggle("Use password", isOn: $usePassword)
+                    if usePassword {
+                        TextField("Password", text: $password)
                     }
                 } header: {
                     Text("Options")
